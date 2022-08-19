@@ -1,46 +1,65 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Home</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    </head>
-    <body>
-        <div class="rev-section">
-            <h2 class="title">Choose a step</h2>
-            <p class="note">Upload an excel or do it</p>
-            <div class="bigcontainer">
-                <div class="task">
-                    <div class="head-task">
-                        <img src="{{url_for('static', filename='images/1.png')}}" width="250px">
-                    </div>
-                    <div class="body-task">
-                        <div class="name-task">Complete forms</div>
-                    </div>
-                </div>
-                <div class="task">
-                    <div class="head-task">
-                        <img src="{{url_for('static', filename='images/2.png')}}" width="250px">
-                    </div>
-                    <div class="body-task">
-                        <div class="name-task">Modify in database</div>
-                    </div>
-                </div>
-                <div class="task">
-                    <div class="head-task">
-                        <img src="{{url_for('static', filename='images/3.png')}}" width="250px">
-                    </div>
-                    <div class="body-task">
-                        <div class="name-task">Check database</div>
+<head>
+    <title>Home</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='home.css') }}">
+    <link rel="stylesheet" type="text/css"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-                    </div>
-                </div>
+    <!--Background -->
+
+    <div class="d-flex flex-column justify-content-center w-100 h-100">
+
+        <div class="d-flex flex-column justify-content-center align-items-center">
+            <div class="btn-group my-5">
+            </div>
+            <a href="https://manuel.pinto.dev" class="text-decoration-none">
+            </a>
+        </div>
+    </div>
+    </div>
+    <!--Background-->
+
+
+</head>
+<body>
+<div class="rev-section">
+    <h2 class="title">Choose a step</h2>
+    <p class="note">Upload an excel or do it</p>
+    <div class="bigcontainer">
+        <div class="task">
+            <div class="head-task">
+                <img src="{{url_for('static', filename='images/1.png')}}" width="250px">
+            </div>
+            <div class="body-task">
+                <div class="name-task"><a href="http://localhost:5000/forms" class="action">Complete forms</a></div>
+
             </div>
         </div>
+        <div class="task">
+            <div class="head-task">
+                <img src="{{url_for('static', filename='images/2.png')}}" width="250px">
+            </div>
+            <div class="body-task">
+                <div class="name-task"><a href="http://localhost:5000/modifydb" class="action">Modify in database</a></div>
+            </div>
+        </div>
+        <div class="task">
+            <div class="head-task">
+                <img src="{{url_for('static', filename='images/3.png')}}" width="250px">
+            </div>
+            <div class="body-task">
+
+                <div class="name-task"><a href="http://localhost:5000/checkdb" class="action">Check database</a></div>
+
+            </div>
+        </div>
+    </div>
+</div>
 
 <a href="http://localhost:5000/login">
-       <button class="logoutBtn">Logout</button>
+    <button class="logoutBtn">Logout</button>
 </a>
-    </body>
+</body>
 </html>

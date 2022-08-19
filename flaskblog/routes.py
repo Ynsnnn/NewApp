@@ -1,23 +1,32 @@
+import os
+
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm
-from flaskblog.models import User, Post
-from flask_login import login_user, current_user, logout_user, login_required
+from flaskblog.models import User
+from flask_login import login_user, current_user, logout_user
+from PIL import ImageGrab
+import xlwings as xw
+from werkzeug.utils import secure_filename
 
-posts = [
-    {
-        'author': 'Corey Schafer',
-        'title': 'Blog Post 1',
-        'content': 'First post content',
-        'date_posted': 'April 20, 2018'
-    },
-    {
-        'author': 'Jane Doe',
-        'title': 'Blog Post 2',
-        'content': 'Second post content',
-        'date_posted': 'April 21, 2018'
-    }
-]
+
+def excel_catch_screen(shot_excel, shot_sheetname):
+    app = xw.App(visible=True, add_book=False)  # Use xlwings Of app start-up
+    wb = app.books.open(shot_excel)  # Open file
+    sheet = wb.sheets(shot_sheetname)  # Selected sheet
+    all = sheet.used_range  # Get content range
+    print(all.value)
+    all.api.CopyPicture()  # Copy picture area
+    sheet.api.Paste()  # Paste
+    img_name = 'data'
+    pic = sheet.pictures[0]  # Current picture
+    pic.api.Copy()  # Copy the picture
+    img = ImageGrab.grabclipboard()  # Get the picture data of the clipboard
+    img.save("C:\\Users\\Ynsnnn\\Desktop\\NewApp\\flaskblog\\Excel" + img_name + ".png")  # Save the picture
+    pic.delete()  # Delete sheet Pictures on
+    wb.close()  # Do not save , Direct closure
+    app.quit()
+
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
@@ -38,20 +47,48 @@ def login():
 
 @app.route("/home")
 def home():
-    return render_template('home.html', posts=posts)
+    return render_template('home.html')
+
+
+@app.route("/forms")
+def forms():
+    return render_template('forms.html')
+
+
+@app.route("/modifydb")
+def modifydb():
+    return render_template('modifydb.html')
+
+
+@app.route("/checkdb")
+def checkdb():
+    return render_template('checkdb.html')
+
 
 @app.route("/logout")
 def logout():
     logout_user()
     return redirect(url_for('/'))
 
-### Asta e doar ca sa intri pe pagina sa fii sigur ca esti logat.
-@app.route("/account")
-@login_required
-def account():
-    return render_template('account.html', title='Account')
+@app.route('/uploader', methods=['GET', 'POST'])
+def uploader():
+    if request.method == 'POST':
+        file = request.files['file']
 
-### Pastram asta ca sa ne facem noi conturi.
+    #     if file.filename == "":
+    #         print("File must have a filename")
+    #         return request.url
+    #
+    #     filename = secure_filename(file.filename)
+    #
+    #     file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+    #     print("File saved")
+        return redirect(request.url)
+
+    return render_template("forms.html")
+
+
+####################################################################################### Pastram asta ca sa ne facem noi conturi.
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     if current_user.is_authenticated:
