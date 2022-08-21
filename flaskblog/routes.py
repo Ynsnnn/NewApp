@@ -67,7 +67,7 @@ def checkdb():
 @app.route("/logout")
 def logout():
     logout_user()
-    return redirect(url_for('/'))
+    return redirect(url_for('login'))
 
 @app.route('/uploader', methods=['GET', 'POST'])
 def uploader():

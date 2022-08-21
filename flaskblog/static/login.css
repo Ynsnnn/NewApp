@@ -1,7 +1,10 @@
-body {
-  background: #fafafa;
-  color: #333333;
-  margin-top: 5rem;
+body
+{
+    font-family: "Inter", sans-serif;
+	background: linear-gradient(-45deg, #667eea, #23a6d5, #667eea);
+	background-size: 200% 300%;
+	animation: gradient 25s ease infinite;
+	margin-top: 8.5rem;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -77,4 +80,8 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.container {
+  width: 40%;
 }

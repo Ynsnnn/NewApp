@@ -9,9 +9,11 @@ body
     font-family: sans-serif;
 }
 
+
 .rev-section
 {
     margin:auto;
+    margin-top: 1.75cm;
     padding: 0 1rem; /*1*/
     max-width: 1100px;
     text-align: center;
@@ -51,6 +53,7 @@ body
     margin: 1.75rem auto;
     width: 150px;
     height: 150px;
+    margin-bottom: 1.75cm;
 }
 
 img
@@ -86,16 +89,15 @@ img
 }
 
 .logoutBtn {
-  background-color: #0095ff;
+  background-color: #667eea;
   border: 1px solid transparent;
   border-radius: 3px;
-  box-shadow: rgba(255, 255, 255, .4) 0 1px 0 0 inset;
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
   display: inline-block;
   font-family: -apple-system,system-ui,"Times New Roman",sans-serif;
-  font-size: 13px;
+  font-size: 18px;
   font-weight: 400;
   line-height: 1.15385;
   margin: 0;
@@ -126,8 +128,8 @@ img
 }
 
 body {
-	background: linear-gradient(-45deg, #ad33ff, #23a6d5, #23d5ab);
-	background-size: 400% 400%;
+	background: linear-gradient(-45deg, #667eea, #23a6d5, #667eea);
+	background-size: 200% 300%;
 	animation: gradient 25s ease infinite;
 	height: 100vh;
 }
@@ -151,4 +153,57 @@ body {
 
 .action:hover {
   text-decoration: underline;
+}
+
+
+.button-53 {
+  background-color: #667eea;
+  border: 0 solid #FFF;
+  box-sizing: border-box;
+  color: #FFF;
+  display: flex;
+  font-family: ui-sans-serif,system-ui,-apple-system,system-ui,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1.75rem;
+  padding: .75rem 1.65rem;
+  position: relative;
+  text-align: center;
+  text-decoration: none #FFF solid;
+  text-decoration-thickness: auto;
+  width: 100%;
+  max-width: 460px;
+  position: relative;
+  cursor: pointer;
+  transform: rotate(-2deg);
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+.button-53:focus {
+  outline: 0;
+}
+
+.button-53:after {
+  content: '';
+  position: absolute;
+  border: 1px solid #FFF;
+  bottom: 4px;
+  left: 4px;
+  width: calc(100% - 1px);
+  height: calc(100% - 1px);
+}
+
+.button-53:hover:after {
+  bottom: 2px;
+  left: 2px;
+}
+
+@media (min-width: 768px) {
+  .button-53 {
+    padding: .75rem 3rem;
+    font-size: 1.25rem;
+  }
 }
