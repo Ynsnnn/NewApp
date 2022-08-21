@@ -1,5 +1,5 @@
 import os
-
+import pandas as pd
 from flask import render_template, url_for, flash, redirect, request
 from flaskblog import app, db, bcrypt
 from flaskblog.forms import RegistrationForm, LoginForm
@@ -8,7 +8,6 @@ from flask_login import login_user, current_user, logout_user
 from PIL import ImageGrab
 import xlwings as xw
 from werkzeug.utils import secure_filename
-
 
 def excel_catch_screen(shot_excel, shot_sheetname):
     app = xw.App(visible=True, add_book=False)  # Use xlwings Of app start-up
@@ -22,11 +21,16 @@ def excel_catch_screen(shot_excel, shot_sheetname):
     pic = sheet.pictures[0]  # Current picture
     pic.api.Copy()  # Copy the picture
     img = ImageGrab.grabclipboard()  # Get the picture data of the clipboard
-    img.save("C:\\Users\\Ynsnnn\\Desktop\\NewApp\\flaskblog\\Excel" + img_name + ".png")  # Save the picture
+    img.save("C:\\Users\\Ynsnnn\\Desktop\\NewApp\\flaskblog\\static\\uploads\\" + img_name + ".png")  # Save the picture
     pic.delete()  # Delete sheet Pictures on
     wb.close()  # Do not save , Direct closure
     app.quit()
 
+def processExcel():
+    data = pd.read_excel('C:\\Users\\Ynsnnn\\Desktop\\NewApp\\flaskblog\\static\\uploads\\test.xlsx')
+    print(data)
+    data.fillna(method="ffill", inplace=True)
+    print(data)
 
 @app.route("/", methods=['GET', 'POST'])
 @app.route("/login", methods=['GET', 'POST'])
@@ -44,26 +48,21 @@ def login():
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
-
 @app.route("/home")
 def home():
     return render_template('home.html')
-
 
 @app.route("/forms")
 def forms():
     return render_template('forms.html')
 
-
 @app.route("/modifydb")
 def modifydb():
     return render_template('modifydb.html')
 
-
 @app.route("/checkdb")
 def checkdb():
     return render_template('checkdb.html')
-
 
 @app.route("/logout")
 def logout():
@@ -74,19 +73,23 @@ def logout():
 def uploader():
     if request.method == 'POST':
         file = request.files['file']
+        if file.filename == "":
+            print("File must have a filename")
+            return request.url
 
-    #     if file.filename == "":
-    #         print("File must have a filename")
-    #         return request.url
-    #
-    #     filename = secure_filename(file.filename)
-    #
-    #     file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
-    #     print("File saved")
-        return redirect(request.url)
+        filename = secure_filename(file.filename)
+        file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+        print("File saved")
+
+        processExcel()
+        print("File processed")
+
+        excel_catch_screen("C:\\Users\\Ynsnnn\\Desktop\\NewApp\\flaskblog\\static\\uploads\\test.xlsx", "Sheet1")
+        print("Capture saved")
+
+        return redirect("http://localhost:5000/modifydb")
 
     return render_template("forms.html")
-
 
 ####################################################################################### Pastram asta ca sa ne facem noi conturi.
 @app.route("/register", methods=['GET', 'POST'])
